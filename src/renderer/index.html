@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PJLink Emulator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <span class="app-title">PJLink Emulator</span>
+    <span id="server-status" class="server-status">Starting...</span>
+  </header>
+
+  <main>
+    <section class="panel power-panel">
+      <h2>Power</h2>
+      <div class="power-indicator-row">
+        <span id="power-indicator" class="power-indicator state-standby"></span>
+        <span id="power-state-label">Standby</span>
+      </div>
+      <div class="button-row">
+        <button id="btn-standby">Standby</button>
+        <button id="btn-power-on">Power On</button>
+      </div>
+    </section>
+
+    <section class="panel lamp-panel">
+      <h2>Lamp</h2>
+      <div class="lamp-hours-row">
+        <span>Hours:</span>
+        <span id="lamp-hours">0</span>
+        <button id="btn-edit-lamp" class="btn-small">Edit</button>
+      </div>
+      <div id="lamp-edit-form" class="lamp-edit-form hidden">
+        <input id="lamp-hours-input" type="number" min="0" max="99999" />
+        <button id="btn-lamp-save" class="btn-small">Save</button>
+        <button id="btn-lamp-cancel" class="btn-small btn-secondary">Cancel</button>
+      </div>
+      <div class="lamp-status-row">
+        <span>Status:</span>
+        <span id="lamp-status">Off</span>
+      </div>
+      <label class="fast-tick-label">
+        <input id="fast-tick-toggle" type="checkbox" />
+        Fast-tick (1 hr/min)
+      </label>
+    </section>
+
+    <section class="panel info-panel">
+      <h2>Projector Info</h2>
+      <div class="info-grid">
+        <label for="name-input">Name</label>
+        <input id="name-input" type="text" maxlength="64" />
+        <label for="mfr-input">Manufacturer</label>
+        <input id="mfr-input" type="text" maxlength="64" />
+        <label for="model-input">Model</label>
+        <input id="model-input" type="text" maxlength="64" />
+        <label for="port-input">TCP Port</label>
+        <input id="port-input" type="number" min="1024" max="65535" />
+      </div>
+    </section>
+  </main>
+
+  <section class="log-section">
+    <h2>Connection Log <span class="log-hint">(newest first)</span></h2>
+    <ul id="log-container"></ul>
+  </section>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

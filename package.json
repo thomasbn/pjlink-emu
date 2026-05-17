@@ -1,0 +1,28 @@
+{
+  "name": "pjlink-emu",
+  "version": "1.0.0",
+  "description": "PJLink Class 1 projector emulator",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "build": {
+    "appId": "no.back.pjlink-emu",
+    "productName": "PJLink Emulator",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "src/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^36.0.0",
+    "electron-builder": "^26.0.0"
+  }
+}
