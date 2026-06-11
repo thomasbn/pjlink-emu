@@ -62,6 +62,21 @@
     </section>
   </main>
 
+  <div class="error-bar">
+    <section class="panel error-panel">
+      <h2>Error Status (ERST) <span id="erst-code" class="erst-code">000000</span></h2>
+      <div class="error-grid">
+        <label><input type="checkbox" data-error="fan" /> Fan</label>
+        <label><input type="checkbox" data-error="lamp" /> Lamp</label>
+        <label><input type="checkbox" data-error="temperature" /> Temperature</label>
+        <label><input type="checkbox" data-error="cover" /> Cover open</label>
+        <label><input type="checkbox" data-error="filter" /> Filter</label>
+        <label><input type="checkbox" data-error="other" /> Other</label>
+      </div>
+      <p class="error-hint">Checked = error (2). Reported via the PJLink <code>ERST</code> command.</p>
+    </section>
+  </div>
+
   <section class="log-section">
     <h2>Connection Log <span class="log-hint">(newest first)</span></h2>
     <ul id="log-container"></ul>

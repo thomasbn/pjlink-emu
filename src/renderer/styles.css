@@ -242,6 +242,54 @@ button:disabled {
 
 .hidden { display: none !important; }
 
+/* Error status (ERST) */
+.error-bar {
+  padding: 0 12px 12px;
+  flex-shrink: 0;
+}
+
+.error-panel h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.erst-code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--green);
+  text-transform: none;
+}
+
+.error-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 18px;
+}
+
+.error-grid label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.error-grid input { cursor: pointer; }
+
+.error-hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.error-hint code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  color: var(--text);
+}
+
 /* Log */
 .log-section {
   flex: 1;

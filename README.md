@@ -20,6 +20,7 @@ npm start
 - **Power state machine** — Standby → Warming (10 s) → On → Cooling (10 s) → Standby
 - **Lamp hour simulation** — accumulates hours while powered on; fast-tick mode increments 1 hour per real minute for demos
 - **Persistent state** — lamp hours, port, and projector info survive restarts (`%APPDATA%\pjlink-emu\state.json`)
+- **Error emulation** — toggle fan, lamp, temperature, cover, filter, and other faults to drive the PJLink `ERST` error-status response
 - **Connection log** — shows the last 50 commands received with client IP, raw command, and response
 
 ## Supported PJLink Commands
@@ -30,7 +31,7 @@ npm start
 | `LAMP` | Lamp hours and on/off status (read-only) |
 | `CLSS` | PJLink class (always `1`) |
 | `NAME` | Projector name |
-| `ERST` | Error status (all zeros) |
+| `ERST` | Error status — fan/lamp/temperature/cover/filter/other, toggleable from the UI |
 | `AVMT` | AV mute on/off |
 | `INPT` | Input query (RGB1) |
 | `INST` | Available inputs |

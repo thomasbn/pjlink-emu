@@ -3,8 +3,10 @@ const POWER_CLASSES = ['state-standby', 'state-on', 'state-cooling', 'state-warm
 
 let _suppressInfoInputs = false
 
+const ERROR_ITEMS = ['fan', 'lamp', 'temperature', 'cover', 'filter', 'other']
+
 function applyState(state) {
-  const { power, fastTick, lampHours, port, projectorName, manufacturer, productName, serverError } = state
+  const { power, fastTick, lampHours, port, projectorName, manufacturer, productName, serverError, errors } = state
 
   // Server status
   const statusEl = document.getElementById('server-status')
@@ -37,6 +39,16 @@ function applyState(state) {
   document.getElementById('model-input').value = productName
   document.getElementById('port-input').value = port
   _suppressInfoInputs = false
+
+  // Error status (ERST)
+  if (errors) {
+    for (const item of ERROR_ITEMS) {
+      const cb = document.querySelector(`input[data-error="${item}"]`)
+      if (cb) cb.checked = errors[item] === 2
+    }
+    document.getElementById('erst-code').textContent =
+      ERROR_ITEMS.map((item) => errors[item] || 0).join('')
+  }
 }
 
 function appendLogEntry(entry) {
@@ -82,6 +94,13 @@ document.getElementById('btn-lamp-save').addEventListener('click', () => {
 document.getElementById('btn-lamp-cancel').addEventListener('click', () => {
   document.getElementById('lamp-edit-form').classList.add('hidden')
 })
+
+// Error status checkboxes — checked = error (2), unchecked = OK (0)
+for (const cb of document.querySelectorAll('input[data-error]')) {
+  cb.addEventListener('change', (e) => {
+    window.electronAPI.invoke('set-error', e.target.dataset.error, e.target.checked ? 2 : 0)
+  })
+}
 
 // Info inputs — commit on blur or Enter
 function makeInfoHandler(id, channel) {

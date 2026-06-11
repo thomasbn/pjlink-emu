@@ -111,7 +111,7 @@ class PJLinkServer {
         return '%1NAME=ERR2\r'
 
       case 'ERST':
-        if (param === '?') return '%1ERST=000000\r'
+        if (param === '?') return `%1ERST=${s.queryErrors()}\r`
         return '%1ERST=ERR2\r'
 
       case 'AVMT':

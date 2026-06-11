@@ -9,11 +9,16 @@ const DEFAULTS = {
   productName: 'EMU-1000',
 }
 
+// PJLink ERST error items, in the fixed order they appear in the response.
+// Each value is 0 = OK, 1 = Warning, 2 = Error.
+const ERROR_ITEMS = ['fan', 'lamp', 'temperature', 'cover', 'filter', 'other']
+
 const runtime = {
   power: 0,
   avMute: false,
   input: 11,
   fastTick: false,
+  errors: { fan: 0, lamp: 0, temperature: 0, cover: 0, filter: 0, other: 0 },
   _transitionTimer: null,
   _lampInterval: null,
   _userDataPath: null,
@@ -51,6 +56,7 @@ function getState() {
     avMute: runtime.avMute,
     input: runtime.input,
     fastTick: runtime.fastTick,
+    errors: { ...runtime.errors },
     lampHours: persisted.lampHours,
     port: persisted.port,
     projectorName: persisted.projectorName,
@@ -155,8 +161,21 @@ function setAvMute(enabled, onChange) {
   onChange()
 }
 
+function setError(item, value, onChange) {
+  if (!Object.prototype.hasOwnProperty.call(runtime.errors, item)) return false
+  const v = parseInt(value, 10)
+  if (v !== 0 && v !== 1 && v !== 2) return false
+  runtime.errors[item] = v
+  onChange()
+  return true
+}
+
 function queryLamp() {
   return `${persisted.lampHours} ${runtime.power === 1 ? 1 : 0}`
+}
+
+function queryErrors() {
+  return ERROR_ITEMS.map((item) => runtime.errors[item]).join('')
 }
 
 module.exports = {
@@ -171,8 +190,11 @@ module.exports = {
   setManufacturer,
   setProductName,
   setAvMute,
+  setError,
   queryLamp,
+  queryErrors,
   get power() { return runtime.power },
+  get errors() { return { ...runtime.errors } },
   get avMute() { return runtime.avMute },
   get input() { return runtime.input },
   get fastTick() { return runtime.fastTick },

@@ -33,6 +33,7 @@ const server = new PJLinkServer(
     setPower: (target, _cb) => state.setPower(target, onChange),
     setAvMute: (enabled, _cb) => state.setAvMute(enabled, onChange),
     queryLamp: () => state.queryLamp(),
+    queryErrors: () => state.queryErrors(),
   },
   onLog
 )
@@ -92,6 +93,10 @@ ipcMain.handle('set-port', async (_e, port) => {
   }
   onChange()
   return ok
+})
+
+ipcMain.handle('set-error', (_e, item, value) => {
+  return state.setError(item, value, onChange)
 })
 
 ipcMain.handle('set-name', (_e, name) => {
